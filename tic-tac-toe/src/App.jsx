@@ -144,6 +144,7 @@ const App = () => {
         playerName: username,
       });
     });
+    
 
     setSocket(newSocket);
   }
@@ -154,7 +155,6 @@ const App = () => {
     Swal.fire("Copied!", "Share this URL with firend.", "success");
   };
 
-  // Waiting screen while searching opponent
   if (waitingForOpponent && !opponentName) {
     return (
       <div className="w-full h-screen flex justify-center items-center bg-gray-900 text-white">
@@ -163,7 +163,6 @@ const App = () => {
     );
   }
 
-  // Game screen
   if (playOnline && opponentName) {
     return (
       <div className="min-h-screen flex flex-col items-center bg-gray-900 text-white py-10">
@@ -233,7 +232,6 @@ const App = () => {
     );
   }
 
-  // Landing Page
   return (
     <>
       <Navbar />

@@ -5,7 +5,6 @@ const { Server } = require("socket.io");
 
 const httpServer = createServer();
 
-// ⬅️ Use CORS origins from environment variables
 const io = new Server(httpServer, {
   cors: {
     origin: [
@@ -16,6 +15,7 @@ const io = new Server(httpServer, {
   },
 });
 
+// i am not store game only use socket.io and connectesd user
 const PORT = process.env.PORT || 3000;
 
 const allUsers = {};
