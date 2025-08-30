@@ -1,10 +1,22 @@
+require("dotenv").config(); // ⬅️ Load environment variables
+
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 
 const httpServer = createServer();
+
+// ⬅️ Use CORS origins from environment variables
 const io = new Server(httpServer, {
-  cors: "http://localhost:5174/",
+  cors: {
+    origin: [
+      process.env.FRONTEND_URL,
+      process.env.PRODUCTION_FRONTEND_URL,
+    ],
+    methods: ["GET", "POST"],
+  },
 });
+
+const PORT = process.env.PORT || 3000;
 
 const allUsers = {};
 const allRooms = [];
@@ -63,6 +75,8 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", function () {
     const currentUser = allUsers[socket.id];
+    if (!currentUser) return;
+
     currentUser.online = false;
     currentUser.playing = false;
 
@@ -82,7 +96,6 @@ io.on("connection", (socket) => {
   });
 });
 
-httpServer.listen(3000 , () => {
-    console.log("hera bete....");
-    
+httpServer.listen(PORT, () => {
+  console.log(`✅ Server running on port ${PORT}`);
 });
